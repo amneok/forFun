@@ -1,0 +1,16 @@
+ Make variables and mappings for aws-infra-main.json so it can be used in any region.
+ Make tfInstance pull tf files upon creation and run a terraform plan/apply
+ Build scripts
+ Terraform plans with vars and mappings
+ Add Ansible to the mix
+ Add puppet to the mix
+ Add chef to the mix
+ Add azure to the mix
+ Add GCP to the mix
+Add docker and kubernetes to the mix
+Figure out how to standup and app/site that can be load tested to scale inside of Kubernetes or base AWS auto scaling
+Write an app for use in standup/load bash??
+**Get lambda in the mix for some admin tasks like tearing down CFTs if they still exist in the wee hours of the morning
+Write a terraform provider in go
+Write an ansible module in python
+Get a database in the mixFigure out potential monitization in order to pay for this lab.
