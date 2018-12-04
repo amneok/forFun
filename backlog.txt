@@ -14,3 +14,4 @@ Write an app for use in standup/load bash??
 Write a terraform provider in go
 Write an ansible module in python
 Get a database in the mixFigure out potential monitization in order to pay for this lab.
+Use peter-g.net to host custom app for load testing using an ALB/ELB in AWS

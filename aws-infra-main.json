@@ -90,7 +90,7 @@
 				  "unzip": [],
 				  "wget": [],
 				  "docker": [],
-				  "git": []
+					"git": []
 				}
 			  },
 			  "files" : {
@@ -119,7 +119,7 @@
 		  }],
 		  "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
 			   "#!/bin/bash -xe\n",
-			   "yum update -y\n",
+				 "yum update -y\n",
 
 			   "wget https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip\n",
 			   "unzip terraform_0.11.10_linux_amd64.zip\n",
