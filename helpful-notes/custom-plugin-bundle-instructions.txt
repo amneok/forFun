@@ -1,0 +1,54 @@
+yum/apt-get install git gzip wget tar unzip
+cd ~
+wget https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
+unzip terraform_0.11.10_linux_amd64.zip
+mv terraform /usr/local/bin/
+# The OS arch type following the plugins directory should match the go standard nbotation for your OS
+mkdir -p ~/terraform.d/plugins/linux_amd64
+cd /usr/local
+# Gotta have go 1.11.x specifically for this to work
+wget https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz
+gunzip go1.11.2.linux-amd64.tar.gz
+tar -xf go1.11.2.linux-amd64.tar
+export PATH=$PATH:/usr/local/go/bin
+# Make sure you get a 1.11.x version!
+go version
+mkdir ~/go
+export GOPATH=~/go
+# Make a dir to clone the terraform repo into. Must have the developer name, in this case hashicorp.
+mkdir -p ~/go/src/github.com/hashicorp
+cd ~/go/src/github.com/hashicorp/
+git clone https://github.com/hashicorp/terraform.git
+# Make a dir to clone the custom provider repo into. Must have the developer name, in this case GSLabDev. 
+# Make sure after you compile the go code from a custom provider, you ensure the binary is executable and has the standard naming convention:
+# terraform-provider-<provider-name>_v<version number>
+# All commands until next hash line can be repeated for any other custom provider.
+mkdir -p ~/go/src/github.com/GSLabDev
+cd ~/go/src/github.com/GSLabDev/
+git clone https://github.com/GSLabDev/terraform-provider-ad.git
+go build
+mv terraform-provider-ad ~/terraform.d/plugins/linux_amd64/terraform-provider-ad_v1.0
+chmod +x ~/terraform.d/plugins/linux_amd64/terraform-provider-ad_v1.0
+######## This ends community provider repeatable commands. ##########
+cd ~/go/src/github.com/hashicorp/terraform/
+make tools
+export PATH=$PATH:~/go/bin
+make
+go install ./tools/terraform-bundle
+mkdir ~/bundle
+cd bundle/
+vi bundle.hcl
+# See attached .hcl file for example of bundle.hcl
+# Pay careful attention to specified version of Terraform in bundle.hcl and make sure it aligns with what you want.
+# After creating your bundle.hcl continue below
+terraform-bundle package -plugin-dir=/root/terraform.d/plugins/linux_amd64/ bundle.hcl
+# This will create a zip file in the current working directory that is called terraform_<specified-terraform-version>-bundle<timestamp>_<os_arch_type>.zip
+# Copy this zip file to some location that can be accessed via http(s).
+# Obtain the SHA256 checksum for the file in yourdesired manner.
+# Easiest way is using https://emn178.github.io/online-tools/sha256_checksum.html
+# In TFE site admin control panel, go to Terraform Versions tab.
+# Add new Terraform version with unique name, check the 'enable version' box, give it your URL and checksum.
+# In the workspace settings for any workspace in TFE, find the version drop-down and change it to your custom version, and save.
+
+
+
