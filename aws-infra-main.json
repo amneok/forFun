@@ -106,7 +106,7 @@
 		  }
 		},
 		"Properties" : {
-		  "ImageId" : "ami-09b0c9ba5f5a59f32",
+		  "ImageId" : "ami-0ebbf2179e615c338",
 		  "InstanceType" : "t2.micro",
 		  "KeyName" : "forFun",
 		  "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ],
